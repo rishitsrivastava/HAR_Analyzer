@@ -1,4 +1,5 @@
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 const path = require('path')
 const fs = require("fs");
 
@@ -29,6 +30,8 @@ const handleUpload = (req, res) => {
 
 module.exports = { handleUpload };
 =======
+=======
+>>>>>>> Stashed changes
 const path = require("path");
 const fs = require("fs");
 
@@ -78,4 +81,7 @@ const handleUpload = (req, res) => {
 };
 
 module.exports = { handleUpload };
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
