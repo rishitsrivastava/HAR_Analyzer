@@ -17,7 +17,6 @@ const handleUpload = (req, res) => {
         }))
 
         const flaggedRoutes = applyRules(routes);
-        console.log(flaggedRoutes[1])
         
         res.status(200).json({
             message: "HAR file parsed successfully",
