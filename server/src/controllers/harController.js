@@ -1,5 +1,6 @@
 const path = require('path')
 const fs = require("fs");
+const { applyRules } = require('../utils/inferenceEngine');
 
 const handleUpload = (req, res) => {
     try {
@@ -11,12 +12,15 @@ const handleUpload = (req, res) => {
         const routes = harData.log.entries.map(entry => ({
             method: entry.request.method,
             url: entry.request.url,
-            status: entry.response.status
+            status: entry.response.status,
+            time: entry.time
         }))
+
+        const flaggedRoutes = applyRules(routes);
         
         res.status(200).json({
             message: "HAR file parsed successfully",
-            routes
+            flaggedRoutes
         })
     } catch (err) {
         res.status(500).json({
