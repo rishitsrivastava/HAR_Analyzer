@@ -1,12 +1,14 @@
-function statusCodeRule(route) {
+const statusCodeRule = (route) => {
   if (route.status >= 400)
     return `failed route(${route.url}) with status code: ${route.status}`;
-}
+  return null;
+};
 
-function latencyReason(route) {
+const latencyCheckRule = (route) => {
   if (route.time >= 3000)
     return `failed route(${route.url}) with response time ${route.time}`;
-}
+  return null;
+};
 
 function applyRules(routes) {
   const flaggedRoutes = [];
@@ -15,10 +17,12 @@ function applyRules(routes) {
     const reasons = [];
 
     const statusReason = statusCodeRule(route);
-    if (statusReason) flaggedRoutes.push(statusCodeRule);
+    if (statusReason) reasons.push(statusReason);
 
-    const latencyReason = latencyRule(route);
-    if (latencyReason) flaggedRoutes.push(latencyReason);
+    console.log(statusReason);
+
+    const latencyReason = latencyCheckRule(route);
+    if (latencyReason) reasons.push(latencyReason);
 
     if (reasons.length > 0) {
       flaggedRoutes.push({

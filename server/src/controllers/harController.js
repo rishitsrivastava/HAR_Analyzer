@@ -1,6 +1,6 @@
 const path = require('path')
 const fs = require("fs");
-const { applyRules } = require('../utils/inferenceEngine');
+const { applyRules } = require('../utils/inferenceEngine.js');
 
 const handleUpload = (req, res) => {
     try {
@@ -17,6 +17,7 @@ const handleUpload = (req, res) => {
         }))
 
         const flaggedRoutes = applyRules(routes);
+        console.log(flaggedRoutes[1])
         
         res.status(200).json({
             message: "HAR file parsed successfully",
