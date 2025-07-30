@@ -10,15 +10,14 @@ const latencyCheckRule = (route) => {
   return null;
 };
 
-const missingContentTypeRule = (route) => {
-  const headers = route.responseHeaders;
-  if (!headers || typeof headers !== "object") return null;
-
-  const contentType = route.responseHeaders?.["content-type"];
-  if (!contentType || contentType.trim() === "")
-    return `the route ${route.url} is missing headers`;
+function missingContentTypeRule(route) {
+  const headers = route.responseHeaders || {};
+  const contentType = headers["content-type"] || headers["Content-Type"];
+  if (!contentType) {
+    return `Route (${route.url}) missing 'Content-Type' in response headers`;
+  }
   return null;
-};
+}
 
 const largePayloadRule = (route) => {
   if (route.responseSize && route.responseSize > 1000000)
@@ -36,7 +35,13 @@ const invalidMethodRule = (route) => {
 };
 
 function isValidRoute(route) {
-  return route && route.url && typeof route.status === "number";
+  return (
+    route &&
+    typeof route.url === "string" &&
+    typeof route.status === "number" &&
+    typeof route.method === "string" &&
+    typeof route.time === "number"
+  );
 }
 
 function applyRules(routes) {
