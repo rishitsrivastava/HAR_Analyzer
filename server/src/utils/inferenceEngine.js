@@ -1,48 +1,10 @@
-const statusCodeRule = (route) => {
-  if (route.status >= 400)
-    return `failed route(${route.url}) with status code: ${route.status}`;
-  return null;
-};
+const statusCodeRule = require('./rules/statusCodeRule.js')
+const latencyCheckRule = require('./rules/latencyCheckRule.js')
+const missingContentTypeRule = require('./rules/missingContentTypeRule.js')
+const largePayloadRule = require('./rules/largePayloadRule.js');
+const invalidMethodRule = require('./rules/invalidMethodRule.js')
+const isValidRoute = require('./rules/isValidRoute.js')
 
-const latencyCheckRule = (route) => {
-  if (route.time >= 3000)
-    return `failed route(${route.url}) with response time ${route.time}`;
-  return null;
-};
-
-function missingContentTypeRule(route) {
-  const headers = route.responseHeaders || {};
-  const contentType = headers["content-type"] || headers["Content-Type"];
-  if (!contentType) {
-    return `Route (${route.url}) missing 'Content-Type' in response headers`;
-  }
-  return null;
-}
-
-const largePayloadRule = (route) => {
-  if (route.responseSize && route.responseSize > 1000000)
-    return `the route ${route.url} has high payload`;
-  return null;
-};
-
-const invalidMethodRule = (route) => {
-  if (!route.method) return null;
-
-  const allowedMethod = ["GET", "POST", "PUT", "PATCH", "DELETE"];
-  if (!allowedMethod.includes(route.method))
-    return `the route ${route.url} has wrong method`;
-  return null;
-};
-
-function isValidRoute(route) {
-  return (
-    route &&
-    typeof route.url === "string" &&
-    typeof route.status === "number" &&
-    typeof route.method === "string" &&
-    typeof route.time === "number"
-  );
-}
 
 function applyRules(routes) {
   const flaggedRoutes = [];
@@ -54,6 +16,8 @@ function applyRules(routes) {
 
     const statusReason = statusCodeRule(route);
     if (statusReason) reasons.push(statusReason);
+
+    console.log('status rule working')
 
     const latencyReason = latencyCheckRule(route);
     if (latencyReason) reasons.push(latencyReason);
