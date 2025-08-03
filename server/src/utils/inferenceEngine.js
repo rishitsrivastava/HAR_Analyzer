@@ -5,7 +5,7 @@ const largePayloadRule = require("./rules/largePayloadRule.js");
 const invalidMethodRule = require("./rules/invalidMethodRule.js");
 const isValidRoute = require("./rules/isValidRoute.js");
 const dynamicLatencyRule = require("./rules/dynamicLatencyRule.js");
-const computeStats = require("./rules/computeStats.js")
+const computeStats = require("./rules/computeStats.js");
 
 function applyRules(routes) {
   const flaggedRoutes = [];
