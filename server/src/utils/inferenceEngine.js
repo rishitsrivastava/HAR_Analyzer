@@ -30,7 +30,6 @@ function applyRules(routes) {
     
     const dynamicLatency = dynamicLatencyRule(route, stats);
     if (dynamicLatency) reasons.push(dynamicLatency);
-    console.log("missingcontent");
 
     const largePayload = largePayloadRule(route);
     if (largePayload) reasons.push(largePayload);
