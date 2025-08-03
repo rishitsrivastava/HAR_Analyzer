@@ -21,16 +21,16 @@ function applyRules(routes) {
     
     if (statusReason) reasons.push(statusReason);
 
-    console.log("status rule working");
-
+    
     const latencyReason = latencyCheckRule(route);
     if (latencyReason) reasons.push(latencyReason);
-
+    
     const missingContent = missingContentTypeRule(route);
     if (missingContent) reasons.push(missingContent);
-
-    const dynamicLatency = dynamicLatencyRule(route, allRoutesStats);
+    
+    const dynamicLatency = dynamicLatencyRule(route, stats);
     if (dynamicLatency) reasons.push(dynamicLatency);
+    console.log("missingcontent");
 
     const largePayload = largePayloadRule(route);
     if (largePayload) reasons.push(largePayload);
