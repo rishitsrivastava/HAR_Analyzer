@@ -1,5 +1,4 @@
 const statusCodeRule = require("./rules/statusCodeRule.js");
-const latencyCheckRule = require("./rules/latencyCheckRule.js");
 const missingContentTypeRule = require("./rules/missingContentTypeRule.js");
 const largePayloadRule = require("./rules/largePayloadRule.js");
 const invalidMethodRule = require("./rules/invalidMethodRule.js");
@@ -30,9 +29,6 @@ function applyRules(routes) {
     const statusReason = statusCodeRule(route);
 
     if (statusReason) reasons.push(statusReason);
-
-    const latencyReason = latencyCheckRule(route);
-    if (latencyReason) reasons.push(latencyReason);
 
     const missingContent = missingContentTypeRule(route);
     if (missingContent) reasons.push(missingContent);
