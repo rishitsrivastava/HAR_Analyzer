@@ -1,8 +1,12 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export default function Home() {
   const [harFile, setHarFile] = useState(null);
   const [selectedOption, setSelectedOption] = useState(null);
+  const [uploading, setUploading] = useState(null);
+  const navigate = useNavigate();
 
   const handleFileUpload = (e) => {
     const file = e.target.files[0];
@@ -14,9 +18,33 @@ export default function Home() {
     }
   };
 
-  const handleOptionClick = (option) => {
-    setSelectedOption(option);
-    // You can now route or send file to backend accordingly
+  const handleOptionClick = async (option) => {
+    if (!harFile) return alert("upload a HAR file first");
+    const formData = new FormData();
+    formData.append("har", harFile);
+
+    setUploading(true);
+    try {
+      const { data } = await axios.get(
+        "http://localhost:3000/api/v1/upload",
+        formData,
+        {
+          headers: {
+            "ccontent-Type": "multiplepart/form-data",
+          },
+        }
+      );
+      if (option === "manual") {
+        navigate("/manual", { state: { harData: data } });
+      } else {
+        navigate("smart", { state: { inferenceResult: data } });
+      }
+    } catch (error) {
+      console.error("Upload error: ", error);
+      alert("Failed to upload or process HAR file.");
+    } finally {
+      setUploading(false);
+    }
   };
 
   return (
@@ -27,7 +55,7 @@ export default function Home() {
         type="file"
         accept=".har"
         onChange={handleFileUpload}
-        className="mb-6"
+        className="mb-6 border p-1 border-amber-50"
       />
 
       {harFile && (
@@ -40,6 +68,7 @@ export default function Home() {
             <button
               className="bg-blue-600 hover:bg-blue-700 px-6 py-2 rounded"
               onClick={() => handleOptionClick("manual")}
+              disabled={uploading}
             >
               Manual Analysis
             </button>
@@ -47,6 +76,7 @@ export default function Home() {
             <button
               className="bg-purple-600 hover:bg-purple-700 px-6 py-2 rounded"
               onClick={() => handleOptionClick("smart")}
+              disabled={uploading}
             >
               Smart Suggestions
             </button>
