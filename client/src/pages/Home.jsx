@@ -1,0 +1,67 @@
+import { useState } from "react";
+
+export default function Home() {
+  const [harFile, setHarFile] = useState(null);
+  const [selectedOption, setSelectedOption] = useState(null);
+
+  const handleFileUpload = (e) => {
+    const file = e.target.files[0];
+    if (file && file.name.endsWith(".har")) {
+      setHarFile(file);
+      setSelectedOption(null); // Reset option on new file
+    } else {
+      alert("Please upload a valid .har file");
+    }
+  };
+
+  const handleOptionClick = (option) => {
+    setSelectedOption(option);
+    // You can now route or send file to backend accordingly
+  };
+
+  return (
+    <div className="min-h-screen bg-gray-950 text-white flex flex-col items-center justify-center p-8">
+      <h1 className="text-3xl font-bold mb-6">HAR Log Analyzer</h1>
+
+      <input
+        type="file"
+        accept=".har"
+        onChange={handleFileUpload}
+        className="mb-6"
+      />
+
+      {harFile && (
+        <div className="flex flex-col gap-4 items-center">
+          <p className="text-green-400">Uploaded: {harFile.name}</p>
+
+          <p className="text-lg mt-4">Choose how to analyze:</p>
+
+          <div className="flex gap-4 mt-2">
+            <button
+              className="bg-blue-600 hover:bg-blue-700 px-6 py-2 rounded"
+              onClick={() => handleOptionClick("manual")}
+            >
+              Manual Analysis
+            </button>
+
+            <button
+              className="bg-purple-600 hover:bg-purple-700 px-6 py-2 rounded"
+              onClick={() => handleOptionClick("smart")}
+            >
+              Smart Suggestions
+            </button>
+          </div>
+        </div>
+      )}
+
+      {selectedOption && (
+        <p className="mt-8 text-lg text-yellow-400">
+          You selected:{" "}
+          {selectedOption === "manual"
+            ? "Manual Analysis"
+            : "Smart Suggestions"}
+        </p>
+      )}
+    </div>
+  );
+}
