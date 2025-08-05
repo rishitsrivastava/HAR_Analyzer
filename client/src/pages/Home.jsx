@@ -21,16 +21,16 @@ export default function Home() {
   const handleOptionClick = async (option) => {
     if (!harFile) return alert("upload a HAR file first");
     const formData = new FormData();
-    formData.append("har", harFile);
+    formData.append("harFile", harFile);
 
     setUploading(true);
     try {
-      const { data } = await axios.get(
-        "http://localhost:3000/api/v1/upload",
+      const { data } = await axios.post(
+        "http://localhost:5000/api/v1/upload",
         formData,
         {
           headers: {
-            "ccontent-Type": "multiplepart/form-data",
+            "content-Type": "multiplepart/form-data",
           },
         }
       );
