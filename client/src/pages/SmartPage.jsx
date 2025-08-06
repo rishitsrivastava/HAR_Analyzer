@@ -13,12 +13,12 @@ export default function SmartPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white p-10">
+    <div className="min-h-screen p-10">
       <h2 className="text-2xl font-bold mb-6">Inference Results</h2>
 
       {inferenceResult.flaggedRoutes?.length > 0 ? (
         inferenceResult.flaggedRoutes.map((route, idx) => (
-          <div key={idx} className="bg-gray-800 p-4 rounded mb-4">
+          <div key={idx} className="bg-gray-950 p-4 rounded mb-4">
             <p>
               <strong>URL:</strong> {route.url}
             </p>

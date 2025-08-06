@@ -48,7 +48,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-950 text-white flex flex-col items-center justify-center p-8">
+    <div className="min-h-screen bg-black text-gray-100 flex flex-col items-center justify-center p-8">
       <h1 className="text-3xl font-bold mb-6">HAR Log Analyzer</h1>
 
       <input
