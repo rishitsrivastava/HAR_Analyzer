@@ -1,3 +1,6 @@
+* Will make this file more readable at the end of the project, till then documenting the journey while developing and deploying the project *
+
+
 new features:
 
 we are targeting something that should be able to give the affected routes but also we should also get the data such as method, url, status, time, request time, content type, size, encoding, priority, protocol, connection, initiator, request index, error for the smart routes -> /smart
