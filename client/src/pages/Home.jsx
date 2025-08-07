@@ -30,14 +30,14 @@ export default function Home() {
         formData,
         {
           headers: {
-            "content-Type": "multiplepart/form-data",
+            "content-Type": "multipart/form-data",
           },
         }
       );
       if (option === "manual") {
         navigate("/manual", { state: { harData: data } });
       } else {
-        navigate("smart", { state: { inferenceResult: data } });
+        navigate("/smart", { state: { inferenceResult: data } });
       }
     } catch (error) {
       console.error("Upload error: ", error);
