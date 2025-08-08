@@ -10,3 +10,5 @@ for /manual -> I want that all the data present in the HAR file should be shown 
 currently checking and identifying new methods and ways to implement above.
 
 the frontend should be similar to below, also there are few details for server as well. there a typical working is below:
+
+![Alt text](images/har.png)
